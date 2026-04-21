@@ -1,0 +1,29 @@
+﻿@page "/RemoteData"
+@rendermode InteractiveServer
+
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Gantt
+@using Syncfusion.Blazor.Data
+
+<SfGantt TValue="TaskData" Height="450px" Width="850px" AllowFiltering="true" EnableRowVirtualization>
+    <SfDataManager Url="https://blazor.syncfusion.com/services/production/api/GanttVirtualData" Adaptor="Adaptors.WebApiAdaptor"></SfDataManager>
+	<GanttTaskFields Id="ID" Name="TaskName" StartDate="StartDate" EndDate="EndDate"
+					 Duration="Duration" Dependency="Predecessor" ParentID="ParentId" HasChildMapping="IsParent">
+	</GanttTaskFields>
+    <GanttTimelineSettings TimelineViewMode="TimelineViewMode.Month" TimelineUnitSize="200"></GanttTimelineSettings>
+    <GanttEditSettings AllowEditing="true" Mode="EditMode.Dialog"></GanttEditSettings>
+</SfGantt>
+
+@code {
+	public class TaskData
+	{
+		public int ID { get; set; }
+		public string TaskName { get; set; } = string.Empty;
+		public DateTime StartDate { get; set; }
+		public DateTime EndDate { get; set; }
+		public string? Duration { get; set; }
+		public int? ParentId { get; set; }
+		public string Predecessor { get; set; } = string.Empty;
+		public bool? IsParent { get; set; }
+	}
+}
